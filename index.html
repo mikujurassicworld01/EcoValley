@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agrinho - Agro Forte, Futuro Sustentável</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+
+    <!-- ═══ TELA INICIAL ═══════════════════════════════════════════ -->
+    <div id="tela-inicial">
+      <div id="tela-inicial-overlay">
+        <div id="logo-agro">🌾</div>
+        <h1 id="titulo-jogo">Agro Forte</h1>
+        <h2 id="subtitulo-jogo">Futuro Sustentável</h2>
+        <p id="descricao-jogo">
+          Cuide da sua fazenda, cultive com responsabilidade e preserve o meio ambiente.<br>
+          Equilíbrio entre produção e natureza é o caminho para um futuro sustentável!
+        </p>
+        <div id="botoes-inicio">
+          <button id="btn-jogar" type="button">▶ JOGAR</button>
+          <button id="btn-instrucoes" type="button">? CONTROLES</button>
+        </div>
+        <div id="tema-texto">
+          Concurso Agrinho 2026 — Subcategoria 3 — Tema: "Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente"
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ INSTRUÇÕES ══════════════════════════════════════════════ -->
+    <div id="instrucoes" class="modal-overlay hidden">
+      <div class="modal-caixa">
+        <h2 class="modal-titulo">🎮 Como Jogar</h2>
+        <div id="instrucoes-conteudo">
+          <div class="instrucao-bloco">
+            <h3>🕹 Movimentação</h3>
+            <p>Use <strong>W A S D</strong> ou as <strong>setas</strong> para mover o personagem pelo mapa.</p>
+          </div>
+          <div class="instrucao-bloco">
+            <h3>🔧 Barra de Ferramentas</h3>
+            <ul>
+              <li><strong>Teclas 1–6</strong> selecionam a ferramenta</li>
+              <li><strong>1 — Enxada:</strong> lavra o solo</li>
+              <li><strong>2 — Regador:</strong> rega as plantas</li>
+              <li><strong>3 — Soja / 4 — Morango / 5 — Abóbora:</strong> sementes</li>
+              <li><strong>6 — Foice:</strong> colhe quando maduro</li>
+            </ul>
+          </div>
+          <div class="instrucao-bloco">
+            <h3>⚒ Usar Ferramenta</h3>
+            <p>Pressione <strong>ESPAÇO</strong> ou <strong>clique</strong> no tile adjacente para usar a ferramenta equipada.</p>
+          </div>
+          <div class="instrucao-bloco">
+            <h3>🌱 Como Plantar</h3>
+            <ul>
+              <li>Primeiro <strong>lave o solo</strong> com a Enxada (tile marrom escuro)</li>
+              <li>Selecione uma semente e pressione <strong>ESPAÇO</strong></li>
+              <li><strong>Regue</strong> para acelerar o crescimento (1.45×)</li>
+              <li>Quando pronto, use a <strong>Foice</strong> para colher</li>
+            </ul>
+          </div>
+          <div class="instrucao-bloco">
+            <h3>🏠 Casa — Dormir</h3>
+            <p>Aproxime-se da casa e pressione <strong>E</strong> para dormir. Avança o dia e restaura toda sua energia!</p>
+          </div>
+          <div class="instrucao-bloco">
+            <h3>🏪 Loja do Pierre</h3>
+            <p>Aproxime-se da loja e pressione <strong>E</strong>. Venda sua colheita e compre adubo ou recuperador de solo.</p>
+          </div>
+          <div class="instrucao-bloco">
+            <h3>⚡ Energia</h3>
+            <p>Cada ação custa energia. Enxada=4, Regador=2, Foice=2, Sementes=1. Descanse na casa para recuperar.</p>
+          </div>
+          <div class="instrucao-bloco">
+            <h3>🌿 Ecologia</h3>
+            <p>Soja degrada o solo (−8%). Morango melhora (+5%). Mantenha o equilíbrio entre produção e sustentabilidade!</p>
+          </div>
+        </div>
+        <button id="btn-fechar-instrucoes" type="button" class="btn-modal-fechar">✓ Entendido!</button>
+      </div>
+    </div>
+
+    <!-- ═══ JOGO ════════════════════════════════════════════════════ -->
+    <div id="jogo" class="hidden">
+
+      <canvas id="canvas"></canvas>
+
+      <!-- Loja modal -->
+      <div id="loja" class="modal-overlay hidden">
+        <div class="modal-caixa">
+          <h2 class="modal-titulo">🏪 Loja do Pierre</h2>
+          <div id="loja-saldo">
+            Seu saldo: <strong id="loja-dinheiro">R$500</strong>
+          </div>
+
+          <div class="loja-secao">
+            <h3>💰 Vender Colheita</h3>
+            <div id="loja-vender-lista"></div>
+          </div>
+
+          <div class="loja-secao">
+            <h3>🛒 Comprar Insumos</h3>
+            <div id="loja-comprar-lista">
+              <div class="loja-item">
+                <div class="loja-item-info">
+                  <span class="loja-item-nome">🌱 Adubo</span>
+                  <span class="loja-item-desc">Acelera o crescimento das plantas em 35% (todas as plantas)</span>
+                </div>
+                <div class="loja-item-preco">R$80</div>
+                <button id="btn-comprar-adubo" type="button" class="btn-comprar">Comprar</button>
+              </div>
+              <div class="loja-item">
+                <div class="loja-item-info">
+                  <span class="loja-item-nome">🌿 Recuperador de Solo</span>
+                  <span class="loja-item-desc">Restaura a fertilidade do solo e aumenta a ecologia em +22%</span>
+                </div>
+                <div class="loja-item-preco">R$150</div>
+                <button id="btn-reparar-solo" type="button" class="btn-comprar">Comprar</button>
+              </div>
+            </div>
+          </div>
+
+          <button id="btn-fechar-loja" type="button" class="btn-modal-fechar">Sair da Loja</button>
+        </div>
+      </div>
+
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/tiles.js"></script>
+    <script src="js/world.js"></script>
+    <script src="js/weather.js"></script>
+    <script src="js/shop.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
